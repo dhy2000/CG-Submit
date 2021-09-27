@@ -1,0 +1,27 @@
+{
+    "root-url": "http://judge.buaa.edu.cn",
+    "request": {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:92.0) Gecko/20100101 Firefox/92.0"
+    },
+    "login": {
+        "username": "---YourStudentNumber---",
+        "password": "---YourPassWord---",
+        "userID": "---Your[userID]---",
+        "courseID": "10"
+    },
+    "submit": [
+        {
+            "assignID": "1004",
+            "problemID": "6671"
+        },
+        {
+            "assignID": "1004",
+            "problemID": "6672"
+        },
+        {
+            "assignID": "1004",
+            "problemID": "6673"
+        }
+    ],
+    "save-result": true
+}
