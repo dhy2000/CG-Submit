@@ -17,7 +17,7 @@
 除登录课程平台的用户名和密码外，使用本自动提交工具需要获取并记录的参数字段包括：
 
 - `courseID`,  `assignID`：在查看题目页面的地址栏或开发者模式下记录的第一个 GET 请求地址中即可找到此字段，此二字段为题目查看页面 GET 请求的参数。（例如：`GET /assignment/programOJPList.jsp?proNum=*&courseID=**&assignID=***`）
-- `userID`, `problemID`：开发者模式或抓包软件记录下的请求中，找出访问 `showOJPProcessJSON.jsp` 的 GET 请求，这两个字段为该 GET 请求的两个参数。（例如：`GET /assignment/showOJPProcessJSON.jsp?assignID=***&problemID=***&userID=********&buaa=*.********`）
+- `problemID`：开发者模式或抓包软件记录下的请求中，找出访问 `showOJPProcessJSON.jsp` 的 GET 请求，该字段为该 GET 请求的参数。（例如：`GET /assignment/showOJPProcessJSON.jsp?assignID=***&problemID=***&userID=********&buaa=*.********`，`assignID` 字段也在该请求中）
 
 > 以上请求地址示例仅表示格式，各参数的实际值以 `*` 号代替。
 
@@ -39,7 +39,6 @@
     "login": {
         "username": "19373000", // 用户名, 通常为学号
         "password": "????????",   // 登录密码(明文形式! 填写时注意保护隐私)
-        "userID": "XXXXXXXX",    // "userID" 参数
         "courseID": "10"    // 课程 ID, "courseID" 参数
     },
     "submit": [ // 此处为一个 JSON 数组，一个元素代表一道题目
@@ -60,7 +59,7 @@
 }
 ```
 
-> 特别提醒：在实际编写 JSON 配置文件时请不要包含注释！
+> 特别提醒：在实际编写 JSON 配置文件时请**不要包含注释**！
 
 
 ### 3. 在命令行中运行

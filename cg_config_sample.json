@@ -6,7 +6,6 @@
     "login": {
         "username": "---YourStudentNumber---",
         "password": "---YourPassWord---",
-        "userID": "---Your[userID]---",
         "courseID": "10"
     },
     "submit": [
