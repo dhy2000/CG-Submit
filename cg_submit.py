@@ -162,36 +162,39 @@ def submit_one(prob: tuple):
     if r.status_code != 200:
         print("Submit failed. Status={0}".format(r.status_code), file=sys.stderr)
         return
-    print("Submit done on assign {0}, problem {1}, waiting for judge result".format(prob[0], prob[1]))
-    # Waiting for judge result
-    query_param = {
-        "assignID": prob[0],
-        "problemID": prob[1],
-        "userID": user_id
-    }
-    query_url = root_url + "/assignment/showOJPProcessJSON.jsp"
-    judge_start = time.time()
-    while True:
-        time.sleep(RESULT_REFRESH_INTERVAL)
-        r = requests.get(query_url, params=query_param, headers=request_headers)
-        if r.status_code != 200:
-            continue
-        try:
-            judge_status = r.json()
-            is_working = judge_status[0]['ret']
-            if (is_working == '1'):
-                # Judge Done!
-                judge_end = time.time()
-                judge_timecost = judge_end - judge_start
-                print("Judge on assign {0}, problem {1} done, cost {2:.3f} secs!".format(prob[0], prob[1], judge_timecost))
-                if save_result:
-                    judge_result = judge_status[1]['content']
-                    save_judge_result(prob=prob, result=judge_result)
+    if save_result:
+        print("Submit done on assign {0}, problem {1}, waiting for judge result".format(prob[0], prob[1]))
+        # Waiting for judge result
+        query_param = {
+            "assignID": prob[0],
+            "problemID": prob[1],
+            "userID": user_id
+        }
+        query_url = root_url + "/assignment/showOJPProcessJSON.jsp"
+        judge_start = time.time()
+        while True:
+            time.sleep(RESULT_REFRESH_INTERVAL)
+            r = requests.get(query_url, params=query_param, headers=request_headers)
+            if r.status_code != 200:
+                continue
+            try:
+                judge_status = r.json()
+                is_working = judge_status[0]['ret']
+                if (is_working == '1'):
+                    # Judge Done!
+                    judge_end = time.time()
+                    judge_timecost = judge_end - judge_start
+                    print("Judge on assign {0}, problem {1} done, cost {2:.3f} secs!".format(prob[0], prob[1], judge_timecost))
+                    if save_result:
+                        judge_result = judge_status[1]['content']
+                        save_judge_result(prob=prob, result=judge_result)
+                    return
+            except Exception:
+                print("Error on parsing json judge status!", file=sys.stderr)
+                print(r.text)
                 return
-        except Exception:
-            print("Error on parsing json judge status!", file=sys.stderr)
-            print(r.text)
-            return
+    else:
+        print("Submit done on assign {0}, problem {1}".format(prob[0], prob[1]))
 
 submit_threads = []
 
