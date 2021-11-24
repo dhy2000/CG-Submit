@@ -64,11 +64,27 @@
 
 ### 3. 在命令行中运行
 
-完成编写配置文件后，执行如下命令（假设要提交的文件名为 `file.zip` 并置于当前目录）：
+完成编写配置文件并命名为 `cg_config.json` 后，执行如下命令（假设要提交的文件名为 `file.zip` 并置于当前目录）：
 
-```shell
+```sh
 python -u cg_submit.py file.zip
 ```
+
+若编写了多套配置文件或配置文件名称不是 `cg_config.json`，也可使用命令参数指定配置文件，参数格式为 `-c [config.json]`，其中 `[config.json]` 为实际使用的配置文件名。
+
+示例：使用配置 `config1.json` 提交 `file.zip`
+
+```sh
+python -u cg_submit.py -c config1.json file.zip
+```
+
+或 
+
+```sh
+python -u cg_submit.py file.zip -c config1.json
+```
+
+（注意：若不用 `-c` 参数指定选择的配置文件，则默认使用当前目录下的 `cg_config.json`）
 
 说明：
 
